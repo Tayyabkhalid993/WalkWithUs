@@ -21,10 +21,11 @@ async function getData(category: string) {
 export default async function CategoryPage({
   params,
 }: {
-  params: { category: string } | Promise<{ category: string }>;
+  params: { category: string }; // <-- plain object, not Promise
 }) {
-  const { category } = (await params) as { category: string };
+  const { category } = params; // no await required
   const data: simplifiedProduct[] = await getData(category);
+
   if (!data || data.length === 0) {
     return (
       <div className="bg-white">
